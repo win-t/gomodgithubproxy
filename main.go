@@ -21,8 +21,9 @@ func main() {
 		if strings.Contains(path, `"`) {
 			http.Error(w, "Bad request", 400)
 			return
-
 		}
+
+		w.Header().Set("Cache-Control", "max-age=31536000, public, immutable")
 
 		if r.URL.Query().Get("go-get") != "1" {
 			http.Redirect(w, r, "https://github.com/"+account+"/"+path, 302)
